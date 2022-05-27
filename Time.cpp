@@ -239,7 +239,11 @@ static uint32_t prevMillis = 0;
 static uint32_t nextSyncTime = 0;
 static timeStatus_t Status = timeNotSet;
 
-getExternalTime getTimePtr;  // pointer to external sync function
+#ifdef ARDUINO_QUARTO
+getExternalTime getTimePtr = (getExternalTime) rtc_get;  //set default external sync function
+#else
+getExternalTime getTimePtr; // pointer to external sync function
+#endif
 //setExternalTime setTimePtr; // not used in this version
 
 #ifdef TIME_DRIFT_INFO   // define this to get drift data
